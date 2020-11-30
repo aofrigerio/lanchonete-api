@@ -33,7 +33,7 @@ public class Lanche {
 	@JoinTable(name = "lanches_ingredientes", 
 			  joinColumns = @JoinColumn(name = "lanche_id"), 
 			  inverseJoinColumns = @JoinColumn(name = "ingrediente_id"))
-	@JsonManagedReference
+	//@JsonManagedReference
 	private List<Ingrediente> ingredientes;
 	
 

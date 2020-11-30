@@ -22,11 +22,8 @@ INSERT INTO ingrediente (nome, preco) VALUES
 ('X-Egg'),
 ('X-Egg Bacon');
 
-
-/*
 INSERT INTO LANCHES_INGREDIENTES (LANCHE_ID, INGREDIENTE_ID)
 VALUES
 (1,2),
 (1,3),
 (1,5);
-*/
