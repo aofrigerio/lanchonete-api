@@ -17,13 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lanchonete.model.Ingrediente;
 import com.lanchonete.service.IngredienteService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("ingrediente")
+@Api
 public class IngredienteResource {
 	
 	@Autowired
 	IngredienteService ingredienteService;
 	
+	@ApiOperation(value = "Mostrar todos os ingredientes")
 	@GetMapping
 	public ResponseEntity<List<Ingrediente>> listAll(){
 		return ResponseEntity.ok(ingredienteService.findAll());
