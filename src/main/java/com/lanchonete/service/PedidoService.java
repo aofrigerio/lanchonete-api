@@ -1,6 +1,5 @@
 package com.lanchonete.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import com.lanchonete.model.PedidoRequest;
 import com.lanchonete.model.PedidoRequestAdicionais;
 import com.lanchonete.repository.IngredienteRepository;
 import com.lanchonete.repository.LancheRepository;
+import com.lanchonete.util.PedidoRegraDesconto;
 
 @Service
 public class PedidoService {
@@ -24,6 +24,7 @@ public class PedidoService {
 	@Autowired
 	IngredienteRepository ingredienteRepository;
 	
+	//Serviço responsável por montar o pedido
 	public Pedido gerarPedido(List<PedidoRequest> pedidoRequest) {
 		
 		Pedido pedido = new Pedido();
@@ -33,18 +34,32 @@ public class PedidoService {
 		//pedido.setId(Long.parseLong(null, 1));
 		pedido.setId(1);		
 		
+
+		//Regra de desconto
+		PedidoRegraDesconto pedidoDesconto = new PedidoRegraDesconto();
+		
 		for(PedidoRequest newPedidoRequest : pedidoRequest) {
 			
-			pedido.setQuantidadePedido(newPedidoRequest.getQuantidade());			
+			//Coloca a quantidade requisitada no pedido pedido 
+			pedido.setQuantidadePedido(newPedidoRequest.getQuantidade());
+			
+			//encontra o lanche e adiciona no pedido
 			Lanche lanche = lancheRepository.findById(newPedidoRequest.getLanche()).get();
 			pedido.addLanche(lanche);
 			
+			//preenche o preço dos ingredientes do lanche
 			for(Ingrediente ingrediente : lanche.getIngredientes()) {
 				preco = preco + ingrediente.getPreco();
 			}
 			
+			//Insere o preco adicionais das coisas
 			for(PedidoRequestAdicionais req : newPedidoRequest.getAdicionais()) {
 				Ingrediente ingrediente = ingredienteRepository.findById((long) req.getIngrediente()).get();
+				
+				if(ingrediente != null) {
+					pedido.addAdicional(ingrediente);
+				}
+				
 				preco = preco + (ingrediente.getPreco() * req.getQuantidade());
 				valorAdicional = valorAdicional + (ingrediente.getPreco() * req.getQuantidade());
 			}
@@ -52,9 +67,13 @@ public class PedidoService {
 			pedido.setValorTotalPedido(preco * newPedidoRequest.getQuantidade());		
 			pedido.setValorAdicional(valorAdicional * newPedidoRequest.getQuantidade());
 			
+			//Processa o desconto
+			pedidoDesconto.setPedido(pedido);
+			pedidoDesconto.aplicarDesconto();
+			
 		}
 		
-		return pedido;
+		return pedidoDesconto.getPedido();
 	}
 
 }
