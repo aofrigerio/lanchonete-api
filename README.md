@@ -1,13 +1,13 @@
-<h1>Rest API de gestão de lanches<h1>
+<h1>Rest API de gestão de lanches</h1>
 
-Tecnologias
+<h2>Tecnologias</h2>
 
-Java 8
-Spring Boot 2.1.4
-H2 Database
-Hibernate
-Spring Data JPA
-Lombok
-Maven
+<ul>Java 8</ul>
+<ul>Spring Boot 2.1.4</ul>
+<ul>H2 Database</ul>
+<ul>Hibernate</ul>
+<ul>Sprig Data JPA</ul>
+<ul>Lombok</ul>
+<ul>Maven</ul>
 
-Rodando o Projeto
+<h2>Rodando o Projeto</h2>
