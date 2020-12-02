@@ -17,5 +17,9 @@ public class LancheService {
 	public List<Lanche> listAll(){
 		return lancheRepository.findAll();
 	}
+	
+	public Lanche save(Lanche lanche) {
+		return lancheRepository.save(lanche);
+	}
 
 }

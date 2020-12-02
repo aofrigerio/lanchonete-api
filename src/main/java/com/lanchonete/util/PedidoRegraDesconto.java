@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 public class PedidoRegraDesconto {
 
 	private Pedido pedido;
-	private double valorDesconto;
-	private double valorPedido;
-	private double valorHamburguer;
+	private double valorDesconto = 0;
+	private double valorPedido = 0;
+	private double valorHamburguer = 0;
 	private double valorQueijo;
 	private int quantidadeBacon;
 	private int quantidadeHamburguer;
@@ -27,9 +27,7 @@ public class PedidoRegraDesconto {
 	List<Ingrediente> ingredientes;
 
 	public void aplicarDesconto() {
-
-		List<Lanche> lanches = pedido.getLanches();
-		List<Ingrediente> adicionais = pedido.getAdicionais();
+		/*
 		valorPedido = pedido.getValorTotalPedido();
 
 		// Percorre as quantidades dos ingredientes do lanche
@@ -45,8 +43,10 @@ public class PedidoRegraDesconto {
 
 				if (ingrediente.getNome().equalsIgnoreCase("Hambúrguer")) {
 					
+					quantidadeHamburguer++;
+					
 					if((quantidadeHamburguer % 3) <= 0) {
-						valorHamburguer = valorHamburguer - ingrediente.getPreco();
+						valorHamburguer = valorHamburguer - (ingrediente.getPreco()*-1);
 					}
 					
 				}
@@ -73,7 +73,7 @@ public class PedidoRegraDesconto {
 			if (item.getNome().equalsIgnoreCase("Hambúrguer")) {
 				quantidadeHamburguer++;
 				if((quantidadeHamburguer % 3) <= 0) {
-					valorHamburguer = valorHamburguer - item.getPreco();
+					valorHamburguer = valorHamburguer - (item.getPreco()*-1);
 				}
 			}
 
@@ -82,34 +82,27 @@ public class PedidoRegraDesconto {
 			}
 		});
 
-		
-		System.out.println("Valor do pedido: " + valorPedido);
-		System.out.println("vALOR DO HAMBURGUER " + valorHamburguer);
-		
+	
 		// Aplica o desconto
-		System.out.println(valorDesconto);
+		System.out.println("Valores...");
+		System.out.println("Quantidade hamburguer:" + quantidadeHamburguer);
 		System.out.println("Valor do hamburuger desconto" + valorHamburguer);
+		System.out.println(quantidadeQueijo);
+		System.out.println("Valor do hamburuger desconto" + valorQueijo);
 		System.out.println(quantidadeAlface);
 		System.out.println(quantidadeBacon);
-		System.out.println(quantidadeQueijo);
-		System.out.println(quantidadeHamburguer);
+		System.out.println("Valor desconto:" + valorDesconto);		
+		System.out.println("Valor do pedido: " + valorPedido);
 		
 		
 		//se for light, subtrai 10%
 		if(quantidadeAlface > 0 && quantidadeBacon <= 0) {
 			valorDesconto = valorPedido * (0.1);
-			this.pedido.setValorDesconto(valorDesconto);
-			this.pedido.setValorTotalPedido(valorPedido - valorDesconto + (valorHamburguer) + (valorQueijo));
 		}	
-		/*
-		//se tiver muitos hamburguers
-		if(quantidadeHamburguer > 3) {
-			this.pedido.setValorTotalPedido(valorPedido - ((quantidadeHamburguer / 3) * ));
-		}
-		*/
-		//se tiver muitos queijos
 		
-		
+		//acerta a parte final do pedido);
+		this.pedido.setValorTotalPedido(valorPedido - valorDesconto - valorHamburguer - valorQueijo);
+	*/
 
 	}
 

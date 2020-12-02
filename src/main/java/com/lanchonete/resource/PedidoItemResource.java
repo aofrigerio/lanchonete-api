@@ -13,46 +13,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lanchonete.model.Pedido;
-import com.lanchonete.service.PedidoService;
+import com.lanchonete.model.PedidoItem;
+import com.lanchonete.service.PedidoItemService;
 
 import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping("pedido")
+@RequestMapping("PedidoItem")
 @Api
-public class PedidoResource {
+public class PedidoItemResource {
 	
 	@Autowired
-	PedidoService pedidoService;
+	PedidoItemService pedidoItemService;
 	
 	@PostMapping
-	public ResponseEntity<Pedido> create(@RequestBody Pedido pedido){	
-
-		Pedido newPedido = pedidoService.create(pedido);
+	public ResponseEntity<PedidoItem> create(@RequestBody PedidoItem PedidoItem){	
 			
-		return ResponseEntity.ok(newPedido);
+		return ResponseEntity.ok(PedidoItem);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Pedido>> listAll(){
-		return ResponseEntity.ok(pedidoService.getPedidos());
+	public ResponseEntity<List<PedidoItem>> listAll(){
+		return ResponseEntity.ok(pedidoItemService.getItemPedidoItems());
 	}
 	
 	@GetMapping("/{id}")
-    public ResponseEntity<Pedido> findOrderById(@PathVariable Long id) {
-        return ResponseEntity.ok(pedidoService.getPedidoById(id));
+    public ResponseEntity<PedidoItem> findOrderById(@PathVariable Long id) {
+        return ResponseEntity.ok(pedidoItemService.getItemPedidoItemById(id));
     }
 
     @PutMapping
-    public ResponseEntity<Pedido> updateOrder(@RequestBody Pedido pedido) {
-        return ResponseEntity.ok(pedidoService.updatePedido(pedido));
+    public ResponseEntity<PedidoItem> updateOrder(@RequestBody PedidoItem PedidoItem) {
+        return ResponseEntity.ok(pedidoItemService.updateItemPedidoItem(PedidoItem));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOrder(Long id) {
-        return ResponseEntity.ok(pedidoService.deletePedido(id));
+        return ResponseEntity.ok(pedidoItemService.deleteItemPedidoItem(id));
     }
-    
 
 }
