@@ -1,4 +1,4 @@
-<h1>Rest API de gestão de lanches</h1>
+<h1>Rest API Lanchonete</h1>
 <hr>
 
 <h2>Tecnologias</h2>
@@ -20,20 +20,20 @@ http://localhost:8090/
 
 <h3> Banco de dados: </h3>
 <hr>
-O Projeto está com o banco de dados Embbebed H2 no tipo file. Para acessar, utilize as seguinte endereço:
+O Projeto está com o banco de dados embarcado com H2, no tipo file.<br> 
+Para acessar, utilize as seguinte endereço:<br>
 
-http://localhost:8090/h2
+http://localhost:8090/h2<br><br>
 
-JDBC URL: jdbc:h2:file:./target/classes/db
-User Name:=sa
-Password:=
+JDBC URL: jdbc:h2:file:./target/classes/db<br>
+User Name:=sa<br>
+Password:=<br>
 
 
 <h2>Swagger - Documentação</h2>
 <hr>
-Documentação do swagger http://localhost:8090/swagger-ui/.
-Recomendo utilizar o Postman ou Insomia para consumo de API.
-
+Documentação do swagger http://localhost:8090/swagger-ui.html<br>
+Recomendo utilizar o Postman ou Insomia para consumo de API.<br><br>
 
 <h2> Futuro </h2>
 <hr>
