@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lanchonete.model.Lanche;
+import com.lanchonete.model.Pedido;
 import com.lanchonete.model.PedidoItem;
+import com.lanchonete.repository.PedidoRepository;
 import com.lanchonete.service.PedidoItemService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("pedidoItem")
@@ -38,6 +42,13 @@ public class PedidoItemResource {
 		List<PedidoItem> newItemPedidos = pedidoItemService.saveItemPedidos(pedidoItens);
 			
 		return ResponseEntity.ok(newItemPedidos);
+	}
+	
+	@PostMapping("/{id}")
+	@ApiOperation("Faça seu pedido passando o lanche, que ele automaticamente montará o pedido")
+	public ResponseEntity<List<PedidoItem>> create(@PathVariable Long id){	
+		
+		return ResponseEntity.ok(pedidoItemService.pedirLanche(id));
 	}
 	
 	@GetMapping

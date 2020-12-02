@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,5 +32,8 @@ public class Pedido {
 	private List<PedidoItem> pedidoItens;
 	
 	private double valorTotalPedido;
+	
+	@Transient
+	private Lanche lanche;
 
 }
