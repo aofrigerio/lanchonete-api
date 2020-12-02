@@ -22,13 +22,13 @@ public class SpringFoxConfig extends WebMvcConfigurationSupport {
 		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
 				.paths(PathSelectors.any()).build();
 	}
-/*
+
 	private ApiInfo metaData() {
 		return new ApiInfoBuilder().title("LANCHONETE API").description("\"LANCHONETE API\"")
 				.version("1.0.0").license("Apache License Version 2.0")
 				.licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"").build();
 	}
-*/
+
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");

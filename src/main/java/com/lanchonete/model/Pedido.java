@@ -31,10 +31,5 @@ public class Pedido {
 	private List<PedidoItem> pedidoItens;
 	
 	private double valorTotalPedido;
-	
-	private int quantidadePedido;
-	
-	private double valorAdicional;
-	
-	private double valorDesconto;
+
 }

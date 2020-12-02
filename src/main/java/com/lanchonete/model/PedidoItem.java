@@ -30,4 +30,6 @@ public class PedidoItem {
 	@JoinColumn(name="id_pedido")
 	private Pedido pedido;
 	
+	private double valorTotalIngredientes;
+	
 }

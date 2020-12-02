@@ -28,7 +28,6 @@ public class IngredienteResource {
 	@Autowired
 	IngredienteService ingredienteService;
 	
-	@ApiOperation(value = "Mostrar todos os ingredientes")
 	@GetMapping
 	public ResponseEntity<List<Ingrediente>> listAll(){
 		return ResponseEntity.ok(ingredienteService.findAll());

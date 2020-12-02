@@ -21,5 +21,10 @@ public class LancheService {
 	public Lanche save(Lanche lanche) {
 		return lancheRepository.save(lanche);
 	}
+	
+	public String delete(Long id) {
+		lancheRepository.deleteById(id);
+		return "Removido: " + id;
+	}
 
 }

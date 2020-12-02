@@ -19,7 +19,7 @@ import com.lanchonete.service.PedidoItemService;
 import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping("PedidoItem")
+@RequestMapping("pedidoItem")
 @Api
 public class PedidoItemResource {
 	
@@ -27,9 +27,17 @@ public class PedidoItemResource {
 	PedidoItemService pedidoItemService;
 	
 	@PostMapping
-	public ResponseEntity<PedidoItem> create(@RequestBody PedidoItem PedidoItem){	
+	public ResponseEntity<PedidoItem> create(@RequestBody PedidoItem pedidoItem){	
+		
+		return ResponseEntity.ok(pedidoItemService.saveItemPedido(pedidoItem));
+	}
+	
+	@PostMapping("/list")
+	public ResponseEntity<List<PedidoItem>> createItens(@RequestBody List<PedidoItem> pedidoItens){	
+
+		List<PedidoItem> newItemPedidos = pedidoItemService.saveItemPedidos(pedidoItens);
 			
-		return ResponseEntity.ok(PedidoItem);
+		return ResponseEntity.ok(newItemPedidos);
 	}
 	
 	@GetMapping
@@ -38,17 +46,17 @@ public class PedidoItemResource {
 	}
 	
 	@GetMapping("/{id}")
-    public ResponseEntity<PedidoItem> findOrderById(@PathVariable Long id) {
+    public ResponseEntity<PedidoItem> findById(@PathVariable Long id) {
         return ResponseEntity.ok(pedidoItemService.getItemPedidoItemById(id));
     }
 
     @PutMapping
-    public ResponseEntity<PedidoItem> updateOrder(@RequestBody PedidoItem PedidoItem) {
+    public ResponseEntity<PedidoItem> update(@RequestBody PedidoItem PedidoItem) {
         return ResponseEntity.ok(pedidoItemService.updateItemPedidoItem(PedidoItem));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOrder(Long id) {
+    public ResponseEntity<String> delete(Long id) {
         return ResponseEntity.ok(pedidoItemService.deleteItemPedidoItem(id));
     }
 

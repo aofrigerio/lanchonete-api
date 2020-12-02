@@ -34,23 +34,31 @@ public class PedidoResource {
 		return ResponseEntity.ok(newPedido);
 	}
 	
+	@PostMapping("/list")
+	public ResponseEntity<List<Pedido>> create(@RequestBody List<Pedido> pedidos){	
+
+		List<Pedido> newPedido = pedidoService.createPedidos(pedidos);
+			
+		return ResponseEntity.ok(newPedido);
+	}
+	
 	@GetMapping
 	public ResponseEntity<List<Pedido>> listAll(){
 		return ResponseEntity.ok(pedidoService.getPedidos());
 	}
 	
 	@GetMapping("/{id}")
-    public ResponseEntity<Pedido> findOrderById(@PathVariable Long id) {
+    public ResponseEntity<Pedido> findById(@PathVariable Long id) {
         return ResponseEntity.ok(pedidoService.getPedidoById(id));
     }
 
     @PutMapping
-    public ResponseEntity<Pedido> updateOrder(@RequestBody Pedido pedido) {
+    public ResponseEntity<Pedido> update(@RequestBody Pedido pedido) {
         return ResponseEntity.ok(pedidoService.updatePedido(pedido));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOrder(Long id) {
+    public ResponseEntity<String> delete(Long id) {
         return ResponseEntity.ok(pedidoService.deletePedido(id));
     }
     
