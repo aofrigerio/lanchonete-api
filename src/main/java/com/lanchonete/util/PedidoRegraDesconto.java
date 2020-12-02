@@ -45,22 +45,14 @@ public class PedidoRegraDesconto {
 
 				if (ingrediente.getNome().equalsIgnoreCase("Hambúrguer")) {
 					
-					quantidadeHamburguer++;
-					
-					System.out.println();
-					
-					if(quantidadeHamburguer % 3 <= 0) {
-						valorDesconto = valorDesconto - ingrediente.getPreco();
+					if((quantidadeHamburguer % 3) <= 0) {
+						valorHamburguer = valorHamburguer - ingrediente.getPreco();
 					}
 					
 				}
 
 				if (ingrediente.getNome().equalsIgnoreCase("queijo")) {
 					quantidadeQueijo++;
-					
-					if(valorQueijo % 3 <= 0 ) {
-						valorDesconto = valorDesconto - ingrediente.getPreco();
-					}
 				}
 
 			});
@@ -80,6 +72,9 @@ public class PedidoRegraDesconto {
 
 			if (item.getNome().equalsIgnoreCase("Hambúrguer")) {
 				quantidadeHamburguer++;
+				if((quantidadeHamburguer % 3) <= 0) {
+					valorHamburguer = valorHamburguer - item.getPreco();
+				}
 			}
 
 			if (item.getNome().equalsIgnoreCase("bacon")) {
@@ -91,11 +86,20 @@ public class PedidoRegraDesconto {
 		System.out.println("Valor do pedido: " + valorPedido);
 		System.out.println("vALOR DO HAMBURGUER " + valorHamburguer);
 		
+		// Aplica o desconto
+		System.out.println(valorDesconto);
+		System.out.println("Valor do hamburuger desconto" + valorHamburguer);
+		System.out.println(quantidadeAlface);
+		System.out.println(quantidadeBacon);
+		System.out.println(quantidadeQueijo);
+		System.out.println(quantidadeHamburguer);
+		
+		
 		//se for light, subtrai 10%
 		if(quantidadeAlface > 0 && quantidadeBacon <= 0) {
 			valorDesconto = valorPedido * (0.1);
 			this.pedido.setValorDesconto(valorDesconto);
-			this.pedido.setValorTotalPedido(valorPedido - valorDesconto);
+			this.pedido.setValorTotalPedido(valorPedido - valorDesconto + (valorHamburguer) + (valorQueijo));
 		}	
 		/*
 		//se tiver muitos hamburguers
@@ -105,12 +109,7 @@ public class PedidoRegraDesconto {
 		*/
 		//se tiver muitos queijos
 		
-		// Aplica o desconto
-				System.out.println(valorDesconto);
-				System.out.println(quantidadeAlface);
-				System.out.println(quantidadeBacon);
-				System.out.println(quantidadeQueijo);
-				System.out.println(quantidadeHamburguer);
+		
 
 	}
 
