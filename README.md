@@ -35,5 +35,15 @@ Password:=<br>
 Documentação do swagger http://localhost:8090/swagger-ui.html<br>
 Recomendo utilizar o Postman ou Insomia para consumo de API.<br><br>
 
+<h3> Docker </h3>
+<hr>
+Com o docker instalado na máquina, execute o comando dentro da pasta do projeto:
+
+docker build -t spring-app (Para buildar uma imagem docker);
+docker run -p 8080:8090 spring-app (Para rodar a aplicação docker);
+
+Obs.: verifique a porta no server.port do application.properties para garantir a porta correta do Spring.
+
+
 <h2> Futuro </h2>
 <hr>
