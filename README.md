@@ -1,5 +1,4 @@
 <h1>Rest API Lanchonete</h1>
-<hr>
 
 <h2>O que foi utilizado:</h2>
 
@@ -34,7 +33,7 @@ http://localhost:8090/
 <p> Senha: admin </p>
 
 
-<h3> Banco de dados: </h3>
+<h2> Banco de dados: </h2>
 
 <p>O Projeto está com o banco de dados embarcado com H2, no tipo file.</p>
 Para acessar, utilize as seguinte endereço:<br>
@@ -54,6 +53,10 @@ Password:=<br>
 Obs.: verifique a porta no server.port do application.properties para garantir a porta correta do Spring.
 
 
-<h2> Futuro </h2>
-<p>- Utilizar uma segurança mais sofisticada utilizando Oath2 e JWT e criações de usuários</p>
-<p>- Por ser uma coisa bem específica, implementar as regras de segurança via banco de dados</p>
+<h3> Regra de desconto </h3>
+
+<p> ... </p>
+
+<h2> Futuras feauteres </h2>
+<p>- Utilizar uma segurança diferenciada utilizando Oath2 e JWT, para geração de tokens e uma tabela de usuários e permissões</p>
+<p>- Por ser uma coisa bem específica e difícil de implementar, as regras de desconto inserir via banco de dados</p>
