@@ -1,14 +1,3 @@
-/*
-
-DROP TABLE IF EXISTS lanchonete-api;
-
-CREATE TABLE ingrediente (
-  id INT AUTO_INCREMENT  PRIMARY KEY,
-  nome VARCHAR(250) NOT NULL,
-  preco DECIMAL(15,2) NOT NULL
-);
-*/
-
 INSERT INTO INGREDIENTE (nome, preco) VALUES
   ('Alface', 0.40),
   ('Bacon', 2.00),

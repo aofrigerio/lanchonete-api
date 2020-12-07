@@ -31,15 +31,17 @@ public class DescontoService {
 		 double valorTotalPedido = 0;
 				 
 		List<PedidoItem> listaPedidosBanco = pedidoItemService.getItemPedidoPorPedido(pedido.getId());				
-					
-		//soma os valores dos itens novamente
-		for(PedidoItem onePedidoItem : listaPedidosBanco) {
-			System.out.println(onePedidoItem.getIngrediente().getPreco());
-			valorTotalPedido = valorTotalPedido + onePedidoItem.getIngrediente().getPreco();
+	
+		//Refaz a soma do pedido
+		if(listaPedidosBanco.size() > 0) {
+			valorTotalPedido = listaPedidosBanco
+					.stream()
+					.map(item -> item.getIngrediente().getPreco())
+					.reduce( (a, b) -> a += b).get();
 		}
-		
-		
+	
 		//Conta quantos itens existem
+		//Deixei explícito para entender ficar didático
 		totalAlface = listaPedidosBanco
 			.stream()
 			.filter(item -> item.getIngrediente().getNome().equalsIgnoreCase("Alface"))
@@ -59,7 +61,8 @@ public class DescontoService {
 				.stream()
 				.filter(item -> item.getIngrediente().getNome().equalsIgnoreCase("queijo"))
 				.count();
-			
+		
+		//Teste via console
 		System.out.println("total totalAlface:" + totalAlface);
 		System.out.println("total totalBacon:" + totalBacon);
 		System.out.println("total totalHamburguer:" + totalHamburguer);
@@ -86,6 +89,7 @@ public class DescontoService {
 		//Regra para muitos queijos
 		if(totalQueijo >= 3) {
 			
+			//Recupera o pedido já da lista do pedido
 			valorQueijo = listaPedidosBanco
 					.stream()
 					.filter(item -> item.getIngrediente().getNome().equalsIgnoreCase("queijo"))
