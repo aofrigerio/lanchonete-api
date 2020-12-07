@@ -45,7 +45,11 @@ User Name:=sa<br>
 Password:=<br>
 
 <p> Foi definido create-drop para iniciar o banco de dados sempre limpo e com a carga inicial da classe DbAppendRunner.
-Foi utiliza em objeto para caso queira migrar de banco </p>
+Foi utilizado em objeto para caso queira migrar de banco.<br>
+Para isto, pode utilizar o profile dev no application.properties e configurar os dados do novo banco.
+Mas precisará incluir o drive do banco desejado.
+</p>
+
 
 <h3> Docker </h3>
 <p>Com o docker instalado na máquina, execute o comando dentro da pasta do projeto:<p>
@@ -59,6 +63,7 @@ Obs.: verifique a porta no server.port do application.properties para garantir a
 <h3> Regra de desconto </h3>
 
 <p> A regra foi implementada na classe DescontoService. Quando houver um save do PedidoItem, será atualizado o valor do pedido, onde está o desconto. </p>
+<p> Para a solução da inflação, foi colocado a entidade Ingrediente, onde poderá com um endpoint, atualizar os valores quando precisar </p>
 
 <h2> Futuras feauteres </h2>
 <p>- Utilizar uma segurança diferenciada utilizando Oath2 e JWT, para geração de tokens e uma tabela de usuários e permissões</p>
