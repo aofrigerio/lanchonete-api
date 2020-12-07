@@ -25,12 +25,17 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.authorizeRequests()
 			.antMatchers("/h2").permitAll()
+			.antMatchers("/h2/*").permitAll()
+			.antMatchers("h2").permitAll()
+			.antMatchers("/docs/*").permitAll()
+			.antMatchers("/webjars/**").permitAll()
 			.anyRequest()
 			.authenticated()
 			.and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
-			.csrf().disable();
+			.csrf().disable()
+	        .headers().frameOptions().disable();
 	}
 
 

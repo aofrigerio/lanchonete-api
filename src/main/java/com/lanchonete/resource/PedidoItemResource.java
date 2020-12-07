@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lanchonete.model.Lanche;
-import com.lanchonete.model.Pedido;
 import com.lanchonete.model.PedidoItem;
-import com.lanchonete.repository.PedidoRepository;
 import com.lanchonete.service.PedidoItemService;
 
 import io.swagger.annotations.Api;

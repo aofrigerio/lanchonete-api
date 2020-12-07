@@ -9,10 +9,10 @@ CREATE TABLE ingrediente (
 );
 */
 
-INSERT INTO ingrediente (nome, preco) VALUES
+INSERT INTO INGREDIENTE (nome, preco) VALUES
   ('Alface', 0.40),
   ('Bacon', 2.00),
-  ('Hambúrguer', 3.00),
+  ('Hamburguer', 3.00),
   ('Ovo', 0.80),
   ('Queijo', 1.50);
   

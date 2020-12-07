@@ -36,17 +36,29 @@ public class PedidoItemService {
 	@Autowired
 	LancheRepository lancheRepository;
 	
+	@Autowired
+	DescontoService descontoService;
+	
 	
 	public PedidoItem saveItemPedido(PedidoItem pedidoItem) {
 		
-		calcularSalvarItem(pedidoItem);
+		Pedido newPedido = calcularSalvarItem(pedidoItem);
+		PedidoItem newPedidoItem = pedidoItemRepository.save(pedidoItem);
 		
-		return pedidoItemRepository.save(pedidoItem);
+		//Aplica a regra de desconto
+		descontoService.atualizarValorDesconto(newPedido);		
+		
+		return newPedidoItem;
 	}
 	
 	public List<PedidoItem> saveItemPedidos(List<PedidoItem> pedidoItens){
 		
-		pedidoItens.stream().forEach(action -> 	calcularSalvarItem(action) );
+		pedidoItens.stream().forEach(action -> 	{
+			Pedido newPedido = calcularSalvarItem(action);		
+			
+			descontoService.atualizarValorDesconto(newPedido);
+			
+		} );
 				
 		return pedidoItemRepository.saveAll(pedidoItens);
 	}
@@ -54,7 +66,8 @@ public class PedidoItemService {
 	public List<PedidoItem> pedirLanche(Long id){
 		
 		Pedido pedido = new Pedido();
-		pedido.setValorTotalPedido(0);	
+		pedido.setValorTotalPedido(0);
+		pedido.setValorTotalDesconto(0);	
 		
 		Lanche lanche = lancheRepository.findById(id).get();
 		List<Ingrediente> ingredientes = lanche.getIngredientes();
@@ -65,13 +78,17 @@ public class PedidoItemService {
 		
 		ingredientes.stream().forEach(item ->{
 			PedidoItem pedidoItemStream = new PedidoItem();
-			System.out.println(item.getNome());
 			pedidoItemStream.setPedido(newPedido);
 			pedidoItemStream.setIngrediente(item);
 			pedidoItens.add(pedidoItemStream);
 		});
-				
-		return saveItemPedidos(pedidoItens);
+		
+		List<PedidoItem> newPedidoItens = saveItemPedidos(pedidoItens);
+		
+		//Aplica a regra de desconto aqui também
+		descontoService.atualizarValorDesconto(newPedido);
+						
+		return newPedidoItens;
 	}
 	
 	public List<PedidoItem> getItemPedidoItems() {
@@ -80,6 +97,10 @@ public class PedidoItemService {
 
     public PedidoItem getItemPedidoItemById(Long id) {
         return pedidoItemRepository.findById(id).orElse(null);
+    }
+    
+    public List<PedidoItem> getItemPedidoPorPedido(Long id) {
+    	return pedidoItemRepository.listarPorItensPorPedido(id);
     }
 
     public PedidoItem updateItemPedidoItem(PedidoItem PedidoItem) {
@@ -94,9 +115,11 @@ public class PedidoItemService {
         return "PedidoItem removed : " + id;
     }
     
+    public List<PedidoItem> listarTodos(){
+    	return pedidoItemRepository.findAll();
+    }
     
-
-	private void calcularSalvarItem(PedidoItem pedidoItem) {
+ 	private Pedido calcularSalvarItem(PedidoItem pedidoItem) {
 		
 		double valorTotalPedido = 0;
 		double valorTotalIngrediente = 0;
@@ -115,8 +138,9 @@ public class PedidoItemService {
 		//seta os vlores
 		pedidoItem.setValorTotalIngredientes(valorTotalIngrediente);
 		pedido.setValorTotalPedido(valorTotalPedido);
-		
-		pedidoRepository.save(pedido);
+		pedido.setValorTotalDesconto(0);
+				
+		return pedidoRepository.save(pedido);
 		
 	}
 	

@@ -27,17 +27,7 @@ public class PedidoService {
 	LancheRepository lancheRepository;
 	
 	public Pedido create(Pedido pedido) {
-		
-		//salva o pedido
-		pedidoRepository.save(pedido);
-		/*
-		Lanche lanche = lancheRepository.findAllById(pedido.getPedidoItens())
-		
-		List<PedidoItem> pedidoItens = lancheService
-		*/
-		
-		
-		
+		pedidoRepository.save(pedido);	
 		return pedido;
 	}
 	
@@ -57,11 +47,11 @@ public class PedidoService {
         if (pedidoRepository.findById(Pedido.getId()) != null) {
             return pedidoRepository.save(Pedido);
         }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido not found");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado");
     }
 
     public String deletePedido(Long id) {
     	pedidoRepository.deleteById(id);
-        return "Pedido removed : " + id;
+        return "Pedido removido : " + id;
     }
 }
