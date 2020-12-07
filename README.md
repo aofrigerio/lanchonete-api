@@ -36,13 +36,16 @@ http://localhost:8090/
 <h2> Banco de dados: </h2>
 
 <p>O Projeto está com o banco de dados embarcado com H2, no tipo file.</p>
-Para acessar, utilize as seguinte endereço:<br>
+<p>Para acessar, utilize as seguinte endereço:</p><br>
 
 <p>http://localhost:8090/h2</p><br>
 
 JDBC URL: jdbc:h2:file:./target/classes/db<br>
 User Name:=sa<br>
 Password:=<br>
+
+<p> Foi definido create-drop para iniciar o banco de dados sempre limpo e com a carga inicial da classe DbAppendRunner.
+Foi utiliza em objeto para caso queira migrar de banco </p>
 
 <h3> Docker </h3>
 <p>Com o docker instalado na máquina, execute o comando dentro da pasta do projeto:<p>
