@@ -32,8 +32,12 @@ public class Pedido {
 	@JsonIgnore
 	private List<PedidoItem> pedidoItens;
 	
-	private double valorTotalPedido;
-	
 	private double valorTotalDesconto;
+	
+	private double valorTotalPedido;
+		
+	public void addDesconto(double valor) {
+		valorTotalDesconto += valor;
+	}
 	
 }

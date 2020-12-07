@@ -19,28 +19,27 @@ public class DescontoService {
 	@Autowired
 	PedidoItemService pedidoItemService;
 	
-	@Autowired
-	IngredienteService ingredienteService;
-	
 	public void atualizarValorDesconto(Pedido pedido) {
 		
 		 long totalHamburguer = 0;
 		 long totalQueijo = 0;
 		 long totalAlface = 0;
 		 long totalBacon = 0;
-		 double valorTotalDesconto = 0; 
+		 double valorHamburguer = 0;
+		 double valorQueijo = 0;
+		 double valorTotalDesconto = 0;
 		 double valorTotalPedido = 0;
-				
-		List<PedidoItem> listaPedidosBanco = pedidoItemService.getItemPedidoPorPedido(pedido.getId());
-		//List<PedidoItem> listaPedidosBanco = pedidoItemService.listarTodos();
-		Pedido pedidoBanco = pedidoService.getPedidoById(pedido.getId());
-				
+				 
+		List<PedidoItem> listaPedidosBanco = pedidoItemService.getItemPedidoPorPedido(pedido.getId());				
+					
 		//soma os valores dos itens novamente
 		for(PedidoItem onePedidoItem : listaPedidosBanco) {
 			System.out.println(onePedidoItem.getIngrediente().getPreco());
 			valorTotalPedido = valorTotalPedido + onePedidoItem.getIngrediente().getPreco();
 		}
 		
+		
+		//Conta quantos itens existem
 		totalAlface = listaPedidosBanco
 			.stream()
 			.filter(item -> item.getIngrediente().getNome().equalsIgnoreCase("Alface"))
@@ -60,7 +59,7 @@ public class DescontoService {
 				.stream()
 				.filter(item -> item.getIngrediente().getNome().equalsIgnoreCase("queijo"))
 				.count();
-		
+			
 		System.out.println("total totalAlface:" + totalAlface);
 		System.out.println("total totalBacon:" + totalBacon);
 		System.out.println("total totalHamburguer:" + totalHamburguer);
@@ -68,31 +67,49 @@ public class DescontoService {
 	
 		//Regra pra muitos hamburguers
 		if(totalHamburguer >= 3) {
+			
+			//Recupera o pedido já da lista do pedido
+			valorHamburguer = listaPedidosBanco
+									.stream()
+									.filter(item -> item.getIngrediente().getNome().equalsIgnoreCase("hamburguer"))
+									.findFirst()
+									.get()
+									.getIngrediente().getPreco();
+			
 			if((totalHamburguer % 3) <= 0) {
-				valorTotalDesconto +=  new BigDecimal((totalHamburguer / 3) * 3).setScale(2,RoundingMode.HALF_UP).doubleValue();
+				valorTotalDesconto += new BigDecimal(valorHamburguer).setScale(2,RoundingMode.HALF_UP).doubleValue();
+			} else {
+				
 			}
 		}
 		
 		//Regra para muitos queijos
 		if(totalQueijo >= 3) {
+			
+			valorQueijo = listaPedidosBanco
+					.stream()
+					.filter(item -> item.getIngrediente().getNome().equalsIgnoreCase("queijo"))
+					.findFirst()
+					.get()
+					.getIngrediente().getPreco();
+			
 			if((totalQueijo % 3) <= 0) {
-				valorTotalDesconto +=  new BigDecimal((totalQueijo / 3) * 2).setScale(2,RoundingMode.HALF_UP).doubleValue();
+				valorTotalDesconto += new BigDecimal(valorQueijo).setScale(2,RoundingMode.HALF_UP).doubleValue();
 			}
 		}
 		
 		//Regra pra lanche light	
 		if(totalBacon <= 0 && totalAlface > 0) {	 
-			valorTotalDesconto = new BigDecimal(valorTotalPedido * 0.1).setScale(2,RoundingMode.HALF_UP).doubleValue();
+			valorTotalDesconto += new BigDecimal(pedido.getValorTotalPedido() * 0.1).setScale(2,RoundingMode.HALF_UP).doubleValue();
 		}
 			
 		//Atualiza somente no pedido, onde tem o valor total
-		pedidoBanco.setValorTotalDesconto(valorTotalDesconto);
-		pedidoBanco.setValorTotalPedido(new BigDecimal(valorTotalPedido - valorTotalDesconto).setScale(2,RoundingMode.HALF_UP).doubleValue());
+		pedido.addDesconto(valorTotalDesconto);
+		double valorAtualizado = (valorTotalPedido - pedido.getValorTotalDesconto());
 		
-		System.out.println("Valor Desconto:" + valorTotalDesconto);
-		System.out.println("Valor Total Pedido:" + (valorTotalPedido - valorTotalDesconto));
-		
-		pedidoService.create(pedidoBanco);		
+		pedido.setValorTotalPedido(new BigDecimal(valorAtualizado).setScale(2,RoundingMode.HALF_UP).doubleValue());
+				
+		pedidoService.create(pedido);		
 		
 	}
 }

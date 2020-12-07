@@ -10,7 +10,7 @@ import com.lanchonete.model.PedidoItem;
 public interface PedidoItemRepository extends JpaRepository<PedidoItem, Long>{
 	
 
-	@Query("select i from PedidoItem i where i.pedido.id = 1")
+	@Query("select i from PedidoItem i where i.pedido.id = :id_pedido")
 	List<PedidoItem> listarPorItensPorPedido(Long id_pedido);
 	
 }

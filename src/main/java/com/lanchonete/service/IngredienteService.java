@@ -27,6 +27,10 @@ public class IngredienteService {
 		return ingredienteRepository.save(ingrediente);
 	}
 	
+	public Ingrediente findByName(String name) {
+		return ingredienteRepository.findByName(name);
+	}
+	
 	public Ingrediente update(Long id, Ingrediente ingrediente) {
 		
 		Ingrediente ingredienteSalva = ingredienteRepository.findById(id).get();

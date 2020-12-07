@@ -55,8 +55,7 @@ Obs.: verifique a porta no server.port do application.properties para garantir a
 
 <h3> Regra de desconto </h3>
 
-<p> ... </p>
+<p> A regra foi implementada na classe DescontoService. Quando houver um save do PedidoItem, será atualizado o valor do pedido, onde está o desconto. </p>
 
 <h2> Futuras feauteres </h2>
 <p>- Utilizar uma segurança diferenciada utilizando Oath2 e JWT, para geração de tokens e uma tabela de usuários e permissões</p>
-<p>- Por ser uma coisa bem específica e difícil de implementar, as regras de desconto inserir via banco de dados</p>

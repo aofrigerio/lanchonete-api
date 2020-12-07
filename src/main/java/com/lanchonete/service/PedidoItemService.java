@@ -44,7 +44,7 @@ public class PedidoItemService {
 		
 		Pedido newPedido = calcularSalvarItem(pedidoItem);
 		PedidoItem newPedidoItem = pedidoItemRepository.save(pedidoItem);
-		
+				
 		//Aplica a regra de desconto
 		descontoService.atualizarValorDesconto(newPedido);		
 		
@@ -138,7 +138,6 @@ public class PedidoItemService {
 		//seta os vlores
 		pedidoItem.setValorTotalIngredientes(valorTotalIngrediente);
 		pedido.setValorTotalPedido(valorTotalPedido);
-		pedido.setValorTotalDesconto(0);
 				
 		return pedidoRepository.save(pedido);
 		
